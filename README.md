@@ -8,6 +8,6 @@ In an attempt to change that, we created voice recordings with the braille patte
 
 This website will list all the audio braille patterns we've created with the hope other kids will enjoy it too.
 
-Of course big kids(adults) are welcome too :)
+Of course big kids(adults) are welcome too :smiley:.
 
-Created with love and have fun!
+Created with :heart: and have fun!

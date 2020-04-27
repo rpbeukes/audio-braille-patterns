@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 
-export interface PeriodicElement {
+export interface BraillePatternLine {
     name: string;
-    position: number;
-    weight: number;
-    symbol: string;
+    position?: number;
+    pictureUrl?: string;
+    audioUrl: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-    { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-    { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-    { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-    { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-    { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-    { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' }
+const DATA: BraillePatternLine[] = [
+    { position: 1, name: 'Hydrogen', pictureUrl: 'https://www.pathstoliteracy.org/sites/pathstoliteracy.perkinsdev1.org/files/uploaded-images/braille_tow_truck.png', audioUrl: 'https://www.youtube.com' },
+    { position: 1, name: 'Helium', pictureUrl: 'https://www.pathstoliteracy.org/sites/pathstoliteracy.perkinsdev1.org/files/uploaded-images/braille_tow_truck.png', audioUrl: 'https://www.youtube.com' },
+    { position: 1, name: 'Lithium', audioUrl: 'https://www.youtube.com' },
+    { position: 1, name: 'Beryllium' , pictureUrl: 'https://www.pathstoliteracy.org/sites/pathstoliteracy.perkinsdev1.org/files/uploaded-images/braille_tow_truck.png', audioUrl: 'https://www.youtube.com' },
+    { position: 1, name: 'Boron' , pictureUrl: 'https://www.pathstoliteracy.org/sites/pathstoliteracy.perkinsdev1.org/files/uploaded-images/braille_tow_truck.png', audioUrl: 'https://www.youtube.com' },
+    { position: 1, name: 'Carbon', pictureUrl: 'https://www.pathstoliteracy.org/sites/pathstoliteracy.perkinsdev1.org/files/uploaded-images/braille_tow_truck.png', audioUrl: 'https://www.youtube.com' },
+    { position: 1, name: 'Nitrogen' , audioUrl: 'https://www.youtube.com' },
 ];
 
 @Component({
@@ -24,8 +24,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
     styleUrls: ['./braille-patterns.component.scss']
 })
 export class BraillePatternsComponent implements OnInit {
-    displayedColumns = ['position', 'name', 'weight', 'symbol'];
-    dataSource = new MatTableDataSource(ELEMENT_DATA);
+    displayedColumns = ['position', 'name', 'pictureUrl', 'audioUrl'];
+    dataSource = new MatTableDataSource(DATA);
 
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim(); // Remove whitespace
@@ -36,5 +36,11 @@ export class BraillePatternsComponent implements OnInit {
     constructor() {
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.dataSource.data = this.dataSource.data.map((x, index) => {
+            x.position = index + 1;
+            return x;
+        });
+        console.log(this.dataSource.data);
+    }
 }

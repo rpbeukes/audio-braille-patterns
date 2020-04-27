@@ -1,18 +1,3 @@
-<div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
-    <div fxFlex>
-        <app-stat [bgClass]="'danger'" [icon]="'dashboard'" [count]="13" [label]="'New Tickets!'"></app-stat>
-    </div>
-    <div fxFlex>
-        <app-stat [bgClass]="'warn'" [icon]="'view_list'" [count]="12" [label]="'New task!'"></app-stat>
-    </div>
-    <div fxFlex>
-        <app-stat [bgClass]="'success'" [icon]="'shopping_cart'" [count]="124" [label]="'New Orders!'"></app-stat>
-    </div>
-    <div fxFlex>
-        <app-stat [bgClass]="'info'" [icon]="'contact_support'" [count]="13" [label]="'New Tickets!'"></app-stat>
-    </div>
-</div>
-
 <div class="mb-20" flFlex flexLayout="row" flexLayout.lt-md="column">
     <div fxFlex>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -35,30 +20,5 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-    </div>
-</div>
-
-<div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
-    <div fxFlex *ngFor="let item of places">
-        <mat-card>
-            <img mat-card-image [src]="item.imgSrc">
-            <mat-card-header style="justify-content: center">
-                <mat-card-title>
-                    <h3 class="m-0">{{item.place}}</h3>
-                </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <p>
-                    {{item.description}}
-                </p>
-            </mat-card-content>
-
-            <mat-card-actions>
-                <button mat-button>{{item.charge}}</button>
-                <button mat-button>
-                    <mat-icon class="nav-icon">location_on</mat-icon> {{item.location}}
-                </button>
-            </mat-card-actions>
-        </mat-card>
     </div>
 </div>

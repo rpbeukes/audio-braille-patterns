@@ -93,7 +93,7 @@
               "node_modules/chart.js/dist/Chart.js"
             ],
             "styles": [
-                "styles.scss"
+              "src/styles/styles.scss"
             ],
             "assets": [
               "src/assets",

@@ -7,7 +7,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { TranslateModule } from '@ngx-translate/core';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TopnavComponent } from './components/topnav/topnav.component';
 import { LayoutRoutingModule } from './layout-routing.module';
@@ -25,8 +24,7 @@ import { Screen2Component } from './screen2/screen2.component';
         MatIconModule,
         MatInputModule,
         MatMenuModule,
-        MatListModule,
-        TranslateModule
+        MatListModule
     ],
     declarations: [Screen2Component, LayoutComponent, NavComponent, TopnavComponent, SidebarComponent, ]
 

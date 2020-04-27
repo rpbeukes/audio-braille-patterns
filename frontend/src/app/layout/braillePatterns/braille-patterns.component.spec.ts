@@ -1,18 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DashboardComponent } from './dashboard.component';
+import { BraillePatternsComponent } from './braille-patterns.component';
 
-describe('DashboardComponent', () => {
-    let component: DashboardComponent;
-    let fixture: ComponentFixture<DashboardComponent>;
+describe('BraillePatternsComponent', () => {
+    let component: BraillePatternsComponent;
+    let fixture: ComponentFixture<BraillePatternsComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [DashboardComponent]
+            declarations: [BraillePatternsComponent]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(DashboardComponent);
+        fixture = TestBed.createComponent(BraillePatternsComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

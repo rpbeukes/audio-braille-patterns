@@ -20,10 +20,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 @Component({
     selector: 'app-dashboard',
-    templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss']
+    templateUrl: './braille-patterns.component.html',
+    styleUrls: ['./braille-patterns.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class BraillePatternsComponent implements OnInit {
     displayedColumns = ['position', 'name', 'weight', 'symbol'];
     dataSource = new MatTableDataSource(ELEMENT_DATA);
 

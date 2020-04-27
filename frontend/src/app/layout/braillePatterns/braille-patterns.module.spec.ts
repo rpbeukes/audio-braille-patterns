@@ -1,10 +1,10 @@
-import { DashboardModule } from './dashboard.module';
+import { BraillePatternsModule } from './braille-patterns.module';
 
 describe('DashboardModule', () => {
-    let dashboardModule: DashboardModule;
+    let dashboardModule: BraillePatternsModule;
 
     beforeEach(() => {
-        dashboardModule = new DashboardModule();
+        dashboardModule = new BraillePatternsModule();
     });
 
     it('should create an instance', () => {

@@ -8,13 +8,13 @@ import { MatTableModule } from '@angular/material/table';
 import { MatGridListModule } from '@angular/material/grid-list';
 
 import { StatModule } from '../../shared/modules/stat/stat.module';
-import { DashboardRoutingModule } from './dashboard-routing.module';
-import { DashboardComponent } from './dashboard.component';
+import { BraillePatternsRoutingModule } from './braille-patterns-routing.module';
+import { BraillePatternsComponent } from './braille-patterns.component';
 
 @NgModule({
     imports: [
         CommonModule,
-        DashboardRoutingModule,
+        BraillePatternsRoutingModule,
         MatGridListModule,
         StatModule,
         MatCardModule,
@@ -24,6 +24,6 @@ import { DashboardComponent } from './dashboard.component';
         MatIconModule,
         FlexLayoutModule.withConfig({addFlexToParent: false})
     ],
-    declarations: [DashboardComponent]
+    declarations: [BraillePatternsComponent]
 })
-export class DashboardModule {}
+export class BraillePatternsModule {}

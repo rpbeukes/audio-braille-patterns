@@ -6,8 +6,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatGridListModule } from '@angular/material/grid-list';
-
-import { StatModule } from '../../shared/modules/stat/stat.module';
 import { BraillePatternsRoutingModule } from './braille-patterns-routing.module';
 import { BraillePatternsComponent } from './braille-patterns.component';
 
@@ -16,7 +14,6 @@ import { BraillePatternsComponent } from './braille-patterns.component';
         CommonModule,
         BraillePatternsRoutingModule,
         MatGridListModule,
-        StatModule,
         MatCardModule,
         MatCardModule,
         MatTableModule,

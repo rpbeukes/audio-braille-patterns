@@ -11,7 +11,6 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TopnavComponent } from './components/topnav/topnav.component';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
-import { NavComponent } from './nav/nav.component';
 import { AboutComponent } from './about/about.component';
 
 @NgModule({
@@ -26,7 +25,7 @@ import { AboutComponent } from './about/about.component';
         MatMenuModule,
         MatListModule
     ],
-    declarations: [AboutComponent, LayoutComponent, NavComponent, TopnavComponent, SidebarComponent, ]
+    declarations: [AboutComponent, LayoutComponent, TopnavComponent, SidebarComponent, ]
 
 })
 export class LayoutModule { }

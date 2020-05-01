@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { BraillePatternLines, BraillePatternLine } from './braillePattterns';
 
-//type BraillePatternColumnNames = Pick<BraillePatternLine, 'position' | 'name' | 'pictureUrl' | 'audioUrl';
+type BraillePatternColumnNames = keyof BraillePatternLine;
 
 @Component({
     selector: 'app-dashboard',
@@ -10,10 +10,8 @@ import { BraillePatternLines, BraillePatternLine } from './braillePattterns';
     styleUrls: ['./braille-patterns.component.scss']
 })
 export class BraillePatternsComponent implements OnInit {
-    // private fff: keyof BraillePatternLine = 'p1osition';
-    // columnNames = fff
-    displayedColumns =  ['position', 'name', 'pictureUrl', 'audioUrl'];
 
+    displayedColumns: BraillePatternColumnNames[] =  ['position', 'name', 'pictureUrl', 'audioUrl'];
     dataSource = new MatTableDataSource(BraillePatternLines);
 
     applyFilter(filterValue: string) {

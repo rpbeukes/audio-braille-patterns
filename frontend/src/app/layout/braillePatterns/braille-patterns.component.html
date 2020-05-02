@@ -12,8 +12,8 @@
             <ng-container matColumnDef="pictureUrl">
                 <th mat-header-cell *matHeaderCellDef style="text-align: center;" > Pattern </th>
                 <td mat-cell *matCellDef="let element" style="text-align: center;" >
-                    <img *ngIf="element.pictureUrl" style="width: 8em; padding: 8px;" [src]="element.pictureUrl" />
-                    <span *ngIf="!element.pictureUrl" style="width: 8em; padding: 8px;">Not Available</span> 
+                    <img *ngIf="element.pictureUrl" style="width: 4em; padding: 8px;" [src]="element.pictureUrl" />
+                    <span *ngIf="!element.pictureUrl" style="width: 4em; padding: 8px;">Not Available</span> 
                 </td>
             </ng-container>
             <ng-container matColumnDef="audioUrl">

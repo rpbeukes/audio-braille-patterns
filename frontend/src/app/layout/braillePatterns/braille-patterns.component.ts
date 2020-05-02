@@ -31,7 +31,5 @@ export class BraillePatternsComponent implements OnInit {
             x.position = index + 1;
             return x;
         });
-
-        console.log(this.dataSource.data);
     }
 }

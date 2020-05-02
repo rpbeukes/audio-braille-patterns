@@ -11,7 +11,7 @@ type BraillePatternColumnNames = keyof BraillePatternLine;
 })
 export class BraillePatternsComponent implements OnInit {
 
-    displayedColumns: BraillePatternColumnNames[] =  ['position', 'name', 'pictureUrl', 'audioUrl'];
+    displayedColumns: BraillePatternColumnNames[] =  ['position', 'name', 'audioUrl', 'pictureUrl'];
     dataSource = new MatTableDataSource(BraillePatternLines);
 
     applyFilter(filterValue: string) {

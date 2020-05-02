@@ -10,8 +10,8 @@ export const BraillePatternLines: BraillePatternLine[] = [
     {
         position: 1,
         name: 'Tow truck',
-        blogContentUrl: 'https://www.pathstoliteracy.org/strategies/tow-truck-braille-design',        
-        pictureUrl: 'https://www.pathstoliteracy.org/sites/pathstoliteracy.perkinsdev1.org/files/uploaded-images/braille_tow_truck.png', 
+        blogContentUrl: 'https://www.pathstoliteracy.org/strategies/tow-truck-braille-design',
+        pictureUrl: 'https://www.pathstoliteracy.org/sites/pathstoliteracy.perkinsdev1.org/files/uploaded-images/braille_tow_truck.png',
         audioUrl: 'https://youtu.be/qRyK6Dqu6-c',
     },
     {

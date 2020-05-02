@@ -24,10 +24,14 @@ export class BraillePatternsComponent implements OnInit {
     }
 
     ngOnInit() {
+        // sort alphabetical
+        this.dataSource.data = this.dataSource.data.sort((a, b) => a.name.localeCompare(b.name));
+
         this.dataSource.data = this.dataSource.data.map((x, index) => {
             x.position = index + 1;
             return x;
         });
+
         console.log(this.dataSource.data);
     }
 }

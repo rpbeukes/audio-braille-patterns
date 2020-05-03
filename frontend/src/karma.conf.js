@@ -33,6 +33,7 @@ module.exports = function (config) {
   }
 
   if (process.env.CI) {
+    console.log('Execute Karma CI config.');
     Object.assign(defaults, {
       autoWatch: false,
       browsers: ['ChromeHeadlessNoSandbox'],

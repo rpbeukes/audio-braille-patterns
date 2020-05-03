@@ -10,7 +10,8 @@
     "test": "ng test",
     "test-ci": "cross-env CI=true ng test --watch=false",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {

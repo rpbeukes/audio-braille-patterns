@@ -29,3 +29,9 @@ jobs:
     - name: Run tests
       run: npm run test-ci && npm run build
       working-directory: ./frontend
+
+    - name: Create artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: dist
+        path: ./frontend/dist      

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
+    "ngVersion": "ng --version",
     "start": "ng serve -o",
     "upgrade:ng": "npm run ng -- update @angular/cli@^9 @angular/core@^9",
     "build": "ng build --prod",

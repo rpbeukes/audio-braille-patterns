@@ -32,7 +32,7 @@ module.exports = function (config) {
     singleRun: false,
   }
 
-  if (process.env.TEST_CI) {
+  if (process.env.CI) {
     Object.assign(defaults, {
       autoWatch: false,
       browsers: ['ChromeHeadlessNoSandbox'],

@@ -38,11 +38,10 @@ jobs:
         run: echo 'GITHUB_REF' ${GITHUB_HEAD_REF}
 
       - name: Publish only when commit on master
-        if: ${GITHUB_HEAD_REF} == 'deploy-to-netlify'
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: npm run netlify:deploy:draft
+        run: ${GITHUB_HEAD_REF} == 'deploy-to-netlify' && npm run netlify:deploy:draft
         working-directory: ./frontend
       # - name: Create artifacts
       #   uses: actions/upload-artifact@v1

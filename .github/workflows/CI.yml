@@ -34,7 +34,7 @@ jobs:
       #   run: npm run build
       #   working-directory: ./frontend
 
-       - name: Debug stuff
+      - name: Debug stuff
         run: echo 'GITHUB_REF' ${GITHUB_HEAD_REF}
 
       - name: Publish only when commit on master

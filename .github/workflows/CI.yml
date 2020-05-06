@@ -34,8 +34,9 @@ jobs:
       #   run: npm run build
       #   working-directory: ./frontend
 
-      - name: Debug stuff
-        run: echo 'GITHUB_REF' ${GITHUB_HEAD_REF}
+      - name: install netlify
+        run: npm i netlify-cli
+        working-directory: ./frontend
 
       - name: Publish only when commit on master
         env:

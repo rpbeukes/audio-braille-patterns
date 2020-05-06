@@ -34,14 +34,11 @@ jobs:
       #   run: npm run build
       #   working-directory: ./frontend
 
-      - name: print all
-        run: printenv
-
-      - name: Debug stuff
-        run: echo 'GITHUB_REF' ${GITHUB_REF}
+       - name: Debug stuff
+        run: echo 'GITHUB_REF' ${GITHUB_HEAD_REF}
 
       - name: Publish only when commit on master
-        if: github.ref == 'refs/heads/deploy-to-netlify'
+        if: ${GITHUB_HEAD_REF} == 'deploy-to-netlify'
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

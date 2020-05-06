@@ -34,15 +34,25 @@ jobs:
       #   run: npm run build
       #   working-directory: ./frontend
 
+      - name: printenv
+        run: printenv
+        working-directory: ./frontend
+
+      - name: github.head_ref
+        if: github.head_ref == 'deploy-to-netlify'
+        run: echo ${GITHUB_HEAD_REF}
+        working-directory: ./frontend
+
       - name: install netlify
         run: npm i netlify-cli
         working-directory: ./frontend
 
       - name: Publish only when commit on master
+        if: github.head_ref == 'deploy-to-netlify'
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: npm run hello && ${GITHUB_HEAD_REF} == 'deploy-to-netlify' && npm run netlify:deploy:draft
+        run: npm run netlify:deploy:draft
         working-directory: ./frontend
       # - name: Create artifacts
       #   uses: actions/upload-artifact@v1

@@ -42,7 +42,7 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: ${GITHUB_HEAD_REF} == 'deploy-to-netlify' && npm run hello && npm run netlify:deploy:draft
+        run: npm run hello && ${GITHUB_HEAD_REF} == 'deploy-to-netlify' && npm run netlify:deploy:draft
         working-directory: ./frontend
       # - name: Create artifacts
       #   uses: actions/upload-artifact@v1

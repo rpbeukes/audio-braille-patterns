@@ -2,40 +2,48 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master, ui]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   build:
-    name: build and test  
+    name: build and test
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
 
-    - name: Install Dependencies
-      run: npm install
-      working-directory: ./frontend
+      - name: Install Dependencies
+        run: npm install
+        working-directory: ./frontend
 
-    - name: Angular version
-      run: npm run ngVersion
-      working-directory: ./frontend
+      - name: Angular version
+        run: npm run ngVersion
+        working-directory: ./frontend
 
-    - name: Run tests
-      run: npm run test-ci
-      working-directory: ./frontend
- 
-    - name: Run prod build
-      run: npm run build
-      working-directory: ./frontend
+      - name: Run tests
+        run: npm run test-ci
+        working-directory: ./frontend
 
-    - name: Create artifacts
-      uses: actions/upload-artifact@v1
-      with:
-        name: dist
-        path: ./frontend/dist      
+      - name: Run prod build
+        run: npm run build
+        working-directory: ./frontend
+
+      - name: Publish only when commit on master
+        if: github.ref == 'refs/heads/ui'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: npm run netlify:deploy:draft
+        working-directory: ./frontend
+
+      - name: Create artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: dist
+          path: ./frontend/dist

@@ -1,4 +1,4 @@
-name: CI
+name: CICD
 
 on:
   push:
@@ -40,7 +40,7 @@ jobs:
           name: dist
           path: ./frontend/dist
 
-      - name: Publish master(ui for now) when github.event is 'push'
+      - name: Publish master(ui for now) to Netlify only on a 'push' to master
         if: github.ref == 'refs/heads/ui' && github.event_name == 'push'
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}

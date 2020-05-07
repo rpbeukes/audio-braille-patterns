@@ -45,5 +45,5 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: npm run netlify:deploy:prod
+        run: npm run netlify:deploy:prod -- --message "Deployed from GithubActions commit(github_sha)-${GITHUB_SHA}"
         working-directory: ./frontend

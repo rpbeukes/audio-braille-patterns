@@ -30,6 +30,11 @@ jobs:
         run: npm run test-ci
         working-directory: ./frontend
 
+      - name: Add Google Analytics to index.html only on a 'push' to master(ui for now)
+        if: github.ref == 'refs/heads/ui' && github.event_name == 'push'
+        run: npm run add-google-analytics-to-index-html
+        working-directory: ./frontend
+
       - name: Run prod build
         run: npm run build
         working-directory: ./frontend

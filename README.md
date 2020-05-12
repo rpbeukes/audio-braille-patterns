@@ -1,4 +1,4 @@
-# Audio Braille Pattern
+# Audio Braille Patterns
 
 ## Why
 

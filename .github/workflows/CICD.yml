@@ -1,0 +1,49 @@
+name: CICD
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    name: build-test-deploy
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: npm install
+        working-directory: ./frontend
+
+      - name: Angular version
+        run: npm run ngVersion
+        working-directory: ./frontend
+
+      - name: Run tests
+        run: npm run test-ci
+        working-directory: ./frontend
+
+      - name: Run prod build
+        run: npm run build
+        working-directory: ./frontend
+
+      - name: Create artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: dist
+          path: ./frontend/dist
+
+      - name: Publish master to Netlify only on a 'push' to master
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: npm run netlify:deploy:prod -- --message "Deployed from GithubActions commit(github_sha)-${GITHUB_SHA}"
+        working-directory: ./frontend

@@ -12,7 +12,7 @@ jobs:
   build:
     name: build-test-deploy
     runs-on: ubuntu-latest
-    # skip the build when the commit message contains '[skip-ci]'
+    # skip the build when the commit message contains '[skip-ci]' doh
     if: "!contains(github.event.head_commit.message, '[skip-ci]')"
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:

@@ -8,4 +8,4 @@ Another thing, someone could use your unique number (UA-xxxx-xxx-xxx) to generat
 See: [protect-analytics-from-hacking](https://neilpatel.com/blog/protect-analytics-from-hacking/)
 
 Here is my setup for this site:
-![ssss](./img/GoogleAnalytics.png)
+![Google Analytics Filter](./img/GoogleAnalytics.png)

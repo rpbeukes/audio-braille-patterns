@@ -2,7 +2,7 @@
 
 ## Why
 
-My blind daughter likes doing [braille patterns](https://www.pathstoliteracy.org/strategies/just-fun-braille-designs) for fun. She create love hearts, a snowman, trucks ect. Not only is this a fun activity, it also help with her braille literacy.
+My blind daughter likes doing [braille patterns](https://www.pathstoliteracy.org/strategies/just-fun-braille-designs) for fun. She creates love hearts, a snowman, trucks ect. Not only is this a fun activity, it also help with her braille literacy.
 
 She is not really fond of screen-readers and we have to read the instructions to her, which makes her feel very dependant.
 

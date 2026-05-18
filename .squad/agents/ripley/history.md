@@ -30,6 +30,17 @@ Ripley is the Lead for the Audio Braille Patterns migration project.
 
 <!-- Append new learnings below. Each entry is something lasting about the project. -->
 
+### 2026-05-18 — Netlify Deployment Setup Confirmed
+
+**What we learned about the deployment:**
+
+- The Netlify **site slug** is `audio-braille-pattern`. This is the internal Netlify project name — it determines the fallback `audio-braille-pattern.netlify.app` URL but has **no bearing on path structure** when a custom domain is in use.
+- The custom domain is `abp.beukesbunch.com`. Netlify serves this from the domain root (`/`). There is no subdirectory prefix.
+- `/braille-patterns` and `/about` are Angular client-side routes, not filesystem paths. The Angular build uses `_redirects` (`/* /index.html 200`) as a SPA catch-all so the server always returns `index.html` and Angular's router handles navigation.
+- In Astro, these become real static HTML files (`/braille-patterns/index.html`, `/about/index.html`). The SPA redirect is no longer architecturally necessary — though it can be retained as a transitional safety net.
+- **Astro `base` config is NOT needed.** All asset and route paths are root-relative. No changes to any path handling in the migration plan.
+- Risk level for this item is now ZERO. Full analysis filed at `.squad/decisions/inbox/ripley-q1-base-url-resolved.md`.
+
 ### 2026-05-18 — Angular App Analysis + Migration Plan
 
 **What the Angular app actually contains:**
@@ -70,3 +81,17 @@ Ripley is the Lead for the Audio Braille Patterns migration project.
 - Lambert: Vitest + Playwright, axe-core accessibility audit (critical — site serves blind users)
 - Accessibility improvements: add proper `alt` text to images, `aria-current` on nav links, keyboard-operable sidebar toggle
 - 4 decisions needed from Ruan: base URL, pattern name links, filter UI, old `frontend/` directory fate
+
+### 2026-05-18 — All Open Questions Resolved
+
+**Status update — decisions are now final:**
+
+- **Q1 (Base URL):** Resolved. `audio-braille-pattern` is Netlify site slug (internal), not URL path. Custom domain `abp.beukesbunch.com` serves from root `/`. No Astro `base` config needed. Risk: ZERO.
+- **Q2 (Pattern links):** Resolved. No links to `blogContentUrl` — data field preserved but not rendered.
+- **Q3 (Filter UI):** Resolved. No filter island — site stays fully static. Can add later if needed.
+- **Q4 (Old frontend/):** Resolved. Keep alongside `frontend-astro/` until Ruan confirms stable production deploy. Parker does NOT touch it.
+
+Detailed analysis for Q1 filed in main decisions log: `decisions\Astro-upgrade-decisions.md` (Section: "2026-05-18 — Inbox Entry: Q1 — Base URL / Netlify Deployment").
+
+**Decision status:** Active — all blockers cleared. Implementation can proceed with confidence.
+

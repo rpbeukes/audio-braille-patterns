@@ -8,7 +8,7 @@
 
 **Author:** Ripley (Lead)  
 **Date:** 2026-05-18  
-**Status:** Proposed — awaiting Ruan's input on open questions
+**Status:** **Active — in progress**
 
 ### Decision 1: Astro Islands Architecture — React only where interactive
 
@@ -62,11 +62,56 @@
 
 **Rationale:** This site's primary audience includes blind users. Accessibility is not optional. These are clear gaps in the current implementation and are trivial to fix during migration.
 
-### Open Questions (Decisions Needed from Ruan)
+### Open Questions (Resolved)
 
-| # | Question | Impact | Response
-|---|---|---|---|
-| Q1 | Does the Netlify site serve from the domain root (`abp.beukesbunch.com/`) or a subdirectory? | If subdirectory, Astro `base` config must be set and all asset/route paths updated | I'm not sure, the files are deployed to `audio-braille-pattern`, but when the site is hit, it goes to `abp.beukesbunch.com` and then the app route `abp.beukesbunch.com/braille-patterns` automatically. ![Netlify UI screenshot](\netlify-deployment-file-structure.png)
-| Q2 | Should pattern names link to their `blogContentUrl` (pathstoliteracy.org) in the new table? | Minor UX enhancement — the data has this field but Angular UI doesn't use it | No
-| Q3 | Should a search/filter input be added to the Braille Patterns page? (`applyFilter` was dead code in Angular) | Scope change — if yes, this becomes a React island | I want this app to be static generated, so  if the filter is not need, we can add it later.
-| Q4 | After successful Astro deployment, should `frontend/` be deleted from the repo? | Recommend yes, to avoid confusion. Confirm before Parker removes it from CICD. | Let's wait with this one until I'm happy with the result.
+| # | Question | Impact | Ruan's Response | Status | Conclusion |
+|---|---|---|---|---|---|
+| Q1 | Does the Netlify site serve from the domain root (`abp.beukesbunch.com/`) or a subdirectory? | If subdirectory, Astro `base` config must be set and all asset/route paths updated | I'm not sure, the files are deployed to `audio-braille-pattern`, but when the site is hit, it goes to `abp.beukesbunch.com` and then the app route `abp.beukesbunch.com/braille-patterns` automatically. ![Netlify UI screenshot](\netlify-deployment-file-structure.png) | ✅ Resolved | `audio-braille-pattern` is the Netlify site slug, not a URL path. Custom domain serves from root `/`. No `base` config needed. `/braille-patterns` is a route, not a directory. See `.squad/decisions/inbox/ripley-q1-base-url-resolved.md`. |
+| Q2 | Should pattern names link to their `blogContentUrl` (pathstoliteracy.org) in the new table? | Minor UX enhancement — the data has this field but Angular UI doesn't use it | No | ✅ Resolved | No links. Data field preserved in type but not rendered. No architecture impact. |
+| Q3 | Should a search/filter input be added to the Braille Patterns page? (`applyFilter` was dead code in Angular) | Scope change — if yes, this becomes a React island | I want this app to be static generated, so  if the filter is not need, we can add it later. | ✅ Resolved | Fully static confirmed. No filter island in scope. Decision 1 (islands architecture) stands as written — SidebarToggle is the only React island. |
+| Q4 | After successful Astro deployment, should `frontend/` be deleted from the repo? | Recommend yes, to avoid confusion. Confirm before Parker removes it from CICD. | Let's wait with this one until I'm happy with the result. | ✅ Resolved | Parker does NOT touch `frontend/` until Ruan explicitly confirms. Decision 2 (parallel directories) stands. |
+
+---
+
+## 2026-05-18 — Inbox Entry: Q1 — Base URL / Netlify Deployment
+
+**Author:** Ripley (Lead)  
+**Resolved:** 2026-05-18
+
+### Question
+
+Does the Netlify site serve from the domain root (`abp.beukesbunch.com/`) or a subdirectory?  
+If subdirectory, Astro `base` config must be set and all asset/route paths updated.
+
+### Ruan's Answer
+
+> "I'm not sure, the files are deployed to `audio-braille-pattern`, but when the site is hit, it goes to `abp.beukesbunch.com` and then the app route `abp.beukesbunch.com/braille-patterns` automatically."
+
+### Analysis
+
+`audio-braille-pattern` is the **Netlify site slug** — the internal project name that determines the `{slug}.netlify.app` fallback URL. It is **not** a URL path segment.
+
+When a custom domain (`abp.beukesbunch.com`) is configured in Netlify, the site is always served from the domain root (`/`). The slug plays no role in routing.
+
+`/braille-patterns` is an **Angular client-side route**, not a directory path. In the current Angular build, Netlify's `_redirects` rule (`/* /index.html 200`) catches all paths and lets Angular's router handle them. In Astro, `pages/braille-patterns.astro` becomes a real static file at `/braille-patterns/index.html` — same URL, same behaviour, no redirect hack needed.
+
+### Determination
+
+**Astro `base` config is NOT needed.**
+
+- The custom domain serves from root `/`
+- `/braille-patterns` is a route, not a deployment subdirectory
+- No asset path changes required
+- No `base` prefix in `astro.config.mjs`
+
+### Risk Assessment
+
+**Risk: NONE.**
+
+The Netlify `_redirects` file in the current Angular build can be dropped (or reduced) — Astro static output creates real HTML files at the correct paths. The SPA catch-all redirect is no longer necessary for the main routes. It may be kept as a fallback for any bookmarked deep links during the cutover window, but is not architecturally required.
+
+### Action Required
+
+- Parker: Do **not** set `base` in `astro.config.mjs`
+- Parker: The `_redirects` SPA rule can be removed or kept as a transitional safety net — confirm with Ruan at deploy time
+- No impact on any other architectural decision

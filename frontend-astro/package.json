@@ -11,6 +11,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "netlify:deploy:prod": "netlify deploy --dir ./dist --prod",
+    "netlify:deploy:preview": "netlify deploy --dir ./dist",
     "test": "vitest run",
     "test:watch": "vitest"
   },

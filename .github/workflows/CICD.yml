@@ -55,6 +55,15 @@ jobs:
           echo "deploy_url=$DEPLOY_URL" >> $GITHUB_OUTPUT
         working-directory: ./frontend-astro
 
+      - name: Write preview URL to job summary
+        if: (github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch') && github.ref != 'refs/heads/master'
+        run: |
+          echo "## 🚀 Netlify Preview" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch:** \`${GITHUB_REF_NAME}\`  **Commit:** \`${GITHUB_SHA:0:7}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "[👁️ View Preview](${{ steps.netlify_preview.outputs.deploy_url }})" >> $GITHUB_STEP_SUMMARY
+
       - name: Comment preview URL on PR
         if: github.event_name == 'pull_request' && github.ref != 'refs/heads/master'
         uses: actions/github-script@v7

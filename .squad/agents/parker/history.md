@@ -70,3 +70,27 @@ Ripley completed the initial architecture and planning phase. Key info for Parke
 - Q4: Delete old `frontend/` after migration? (cleanup step for Parker)
 
 **Full migration plan:** See Ripley's learnings or `prompts/UpgradeToAstro/migration-plan.md`
+
+### 2026-05-18 — Phase 4 Complete: CI/CD Workflow Updates
+
+✅ **COMPLETE**
+
+**What was done:**
+
+1. **GitHub Actions workflow updated (.github/workflows/CICD.yml)**
+   - Node.js version: 16 → 22 (latest LTS, Astro-compatible)
+   - Working directory: `./frontend` → `./frontend-astro`
+   - Build step: `ng build --prod` → `npm run build`
+   - Angular test steps removed
+   - Removed Angular-specific build/deploy steps
+
+2. **Netlify deployment script added**
+   - `netlify:deploy:prod` script configured in `package.json` (in frontend-astro/)
+   - Static output (`dist/`) targets Netlify CDN
+   - Existing domain and deploy URL maintained (no breaking changes)
+
+3. **Artifact handling updated**
+   - GitHub Actions upload-artifact action: v3 (current stable)
+   - Build artifacts stored for deployment verification
+
+**Gate status:** Phase 4 complete. CI/CD pipeline ready for Astro static site deployment. Dallas and Parker both complete; ready for Phase 5 (testing + accessibility by Lambert).

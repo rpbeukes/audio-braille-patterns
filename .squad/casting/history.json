@@ -1,0 +1,26 @@
+{
+  "universe_usage_history": [
+    {
+      "universe": "Alien",
+      "used_at": "2026-05-18",
+      "project": "audio-braille-patterns",
+      "assignment_id": "abp-2026-05-18"
+    }
+  ],
+  "assignment_cast_snapshots": {
+    "abp-2026-05-18": {
+      "universe": "Alien",
+      "project": "audio-braille-patterns",
+      "owner": "Ruan Beukes",
+      "created_at": "2026-05-18",
+      "agents": [
+        { "name": "Ripley", "role": "Lead" },
+        { "name": "Dallas", "role": "Frontend Dev" },
+        { "name": "Lambert", "role": "Tester" },
+        { "name": "Parker", "role": "DevOps" },
+        { "name": "Scribe", "role": "Scribe" },
+        { "name": "Ralph", "role": "Work Monitor" }
+      ]
+    }
+  }
+}

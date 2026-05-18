@@ -44,7 +44,7 @@ jobs:
         working-directory: ./frontend-astro
 
       - name: Deploy preview to Netlify (non-master branches)
-        if: github.event_name == 'pull_request'
+        if: (github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch') && github.ref != 'refs/heads/master'
         id: netlify_preview
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}

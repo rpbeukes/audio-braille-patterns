@@ -138,3 +138,19 @@ Completed Phase 0 — minimal Astro + React scaffold at `frontend-astro/`.
    - Additional page
 
 **Gate status:** Phase 3 complete and verified. Ready for Phase 4 CI/CD updates by Parker.
+
+### 2026-05-18 — Braille Icon Fix: Replaced Wrong SVG Path
+
+✅ **COMPLETE**
+
+**What was done:**
+
+The `mdi:braille` inline SVG in `frontend-astro/src/components/Sidebar.astro` was using the wrong path data — it was a braille dot grid icon, not the actual MDI braille icon (which shows a hand/arm reading braille with dots alongside).
+
+- Fetched correct path from `https://api.iconify.design/mdi:braille.svg`
+- Replaced the incorrect multi-circle path data with the correct path from MDI
+- SVG wrapper kept identical (`width="24" height="24" viewBox="0 0 24 24" fill="currentColor"`)
+- Build verified: 4 pages, 0 TypeScript errors
+- Committed: `fix(icons): correct mdi:braille SVG path to match Angular app`
+
+**Root cause:** When the original inline SVG was added, the wrong icon was sourced (likely a different braille-related icon from MDI, not the canonical `mdi:braille`).

@@ -1,0 +1,4 @@
+# Astro static output — real HTML files generated for each route
+# No SPA catch-all needed. Netlify serves /braille-patterns/index.html directly.
+
+/braille-patterns  /braille-patterns/  301

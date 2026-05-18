@@ -1,0 +1,67 @@
+---
+export interface Props { currentPath: string; }
+const { currentPath } = Astro.props;
+---
+<nav id="sidebar" aria-label="Main navigation">
+  <ul>
+    <li>
+      <a
+        href="/braille-patterns"
+        class:list={[{ active: currentPath.includes('braille-patterns') }]}
+        aria-current={currentPath.includes('braille-patterns') ? 'page' : undefined}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M7 8a1 1 0 0 1 1-1a1 1 0 0 1 1 1v4.47l1.21.13l4.94 2.19c.52.24.85.77.85 1.35v4.36c-.03.82-.68 1.47-1.5 1.5H8c-.38 0-.74-.15-1-.43l-4.9-4.2l.74-.77c.19-.21.46-.32.74-.32h.22L7 18zm12.5-6A1.5 1.5 0 0 0 18 3.5A1.5 1.5 0 0 0 19.5 5A1.5 1.5 0 0 0 21 3.5A1.5 1.5 0 0 0 19.5 2m0 5A1.5 1.5 0 0 0 18 8.5a1.5 1.5 0 0 0 1.5 1.5A1.5 1.5 0 0 0 21 8.5A1.5 1.5 0 0 0 19.5 7m-5 0A1.5 1.5 0 0 0 13 8.5a1.5 1.5 0 0 0 1.5 1.5A1.5 1.5 0 0 0 16 8.5A1.5 1.5 0 0 0 14.5 7m5 5a1.5 1.5 0 0 0-1.5 1.5a1.5 1.5 0 0 0 1.5 1.5a1.5 1.5 0 0 0 1.5-1.5a1.5 1.5 0 0 0-1.5-1.5"/></svg> Braille Patterns
+      </a>
+    </li>
+    <li>
+      <a
+        href="/about"
+        class:list={[{ active: currentPath === '/about' }]}
+        aria-current={currentPath === '/about' ? 'page' : undefined}
+      >
+        <span class="material-icons" aria-hidden="true">brightness_auto</span> About
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<style>
+  #sidebar {
+    position: fixed;
+    top: 64px;
+    left: -250px;
+    width: 250px;
+    height: calc(100vh - 64px);
+    background: #fff;
+    border-right: 1px solid #e0e0e0;
+    transition: left 0.25s ease;
+    z-index: 90;
+    overflow-y: auto;
+  }
+  #sidebar.open {
+    left: 0;
+  }
+  @media (min-width: 992px) {
+    #sidebar {
+      left: 0;
+    }
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 1rem 0;
+  }
+  a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    color: #333;
+    text-decoration: none;
+  }
+  a:hover,
+  a.active {
+    background: #e8eaf6;
+    color: #3f51b5;
+  }
+</style>

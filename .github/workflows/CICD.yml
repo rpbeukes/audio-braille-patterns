@@ -9,44 +9,31 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
     name: build-test-deploy
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # set node version to 16
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 22
 
       - name: Install Dependencies
-        run: npm install && (npm ls --prod --depth 0 || exit 0) && (npm ls --dev --depth 0 || exit 0)
-        working-directory: ./frontend
-
-      - name: Angular version
-        run: npm run ngVersion
-        working-directory: ./frontend
-
-      # - name: Run tests
-      #   run: npm run test-ci
-      #   working-directory: ./frontend
+        run: npm install
+        working-directory: ./frontend-astro
 
       - name: Run prod build
         run: npm run build
-        working-directory: ./frontend
+        working-directory: ./frontend-astro
 
       - name: Create artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: dist
-          path: ./frontend/dist
+          path: ./frontend-astro/dist
 
       - name: Publish master to Netlify only on a 'push' to master
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
@@ -54,4 +41,4 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: npm run netlify:deploy:prod -- --message "Deployed from GithubActions commit(github_sha)-${GITHUB_SHA}"
-        working-directory: ./frontend
+        working-directory: ./frontend-astro

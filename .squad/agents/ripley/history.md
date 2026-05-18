@@ -93,5 +93,16 @@ Ripley is the Lead for the Audio Braille Patterns migration project.
 
 Detailed analysis for Q1 filed in main decisions log: `decisions\Astro-upgrade-decisions.md` (Section: "2026-05-18 — Inbox Entry: Q1 — Base URL / Netlify Deployment").
 
-**Decision status:** Active — all blockers cleared. Implementation can proceed with confidence.
+### 2026-05-18 — Flowbite Template Evaluated and Rejected
+
+**What happened:**
+
+- Ruan requested evaluation of `themesberg/flowbite-astro-admin-dashboard` as a base template
+- Investigation confirmed: the template uses Astro + Tailwind CSS + Flowbite vanilla JS — **React is entirely absent**
+- Ruan immediately rejected the template because React is a hard requirement
+- All changes from that investigation were reverted
+- Decision filed in `decisions\Astro-upgrade-decisions.md`: Template rejected, original architecture (Astro + React islands) stands
+- Decision 1 remains unchanged: `SidebarToggle.tsx` React island (`client:load`) is the approach for mobile sidebar toggle
+
+**Outcome:** Flowbite template direction is permanently cancelled. `@astrojs/react` integration is required. Implementation can proceed with confidence on the original plan.
 

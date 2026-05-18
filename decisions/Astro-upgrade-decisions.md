@@ -4,6 +4,24 @@
 
 ---
 
+## 2026-05-18 — Template Direction: Flowbite Astro Admin Dashboard — REJECTED
+
+**Author:** Ruan Beukes  
+**Date:** 2026-05-18  
+**Status:** **Rejected**
+
+**Template evaluated:** [themesberg/flowbite-astro-admin-dashboard](https://github.com/themesberg/flowbite-astro-admin-dashboard)
+
+**Finding:** Template uses Astro + Tailwind CSS + Flowbite vanilla JS only. **React is entirely absent** — `flowbite-react` is not a dependency. The sidebar toggle is wired via Flowbite's vanilla JS data attributes, not React.
+
+**Reason for rejection:** Ruan requires React in the migration stack. This template would eliminate React from the project.
+
+**Decision:** Template is not adopted. The original architecture stands: **Astro + React islands** (Decision 1 remains unchanged). `@astrojs/react` integration is required. `SidebarToggle.tsx` (React island, `client:load`) remains the approach for the mobile sidebar toggle.
+
+**Note:** `flowbite-react` (https://github.com/themesberg/flowbite-react) exists as a separate React component library built on Tailwind + Flowbite, which could be adopted in future if a Flowbite design system is desired — but this is deferred and outside current scope.
+
+---
+
 ## 2026-05-18 — Architectural Decisions: Angular → Astro Migration
 
 **Author:** Ripley (Lead)  

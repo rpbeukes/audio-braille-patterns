@@ -94,3 +94,31 @@ Ripley completed the initial architecture and planning phase. Key info for Parke
    - Build artifacts stored for deployment verification
 
 **Gate status:** Phase 4 complete. CI/CD pipeline ready for Astro static site deployment. Dallas and Parker both complete; ready for Phase 5 (testing + accessibility by Lambert).
+
+### 2026-05-18 — Phase 4 Enhancement: Netlify Preview Deployments
+
+✅ **COMPLETE**
+
+**What was done:**
+
+1. **Workflow trigger expanded**
+   - Changed from `push: branches: [master]` to `push: branches: ['**']`
+   - All feature branches now trigger CI/CD pipeline
+
+2. **Preview deployment step added**
+   - New step: `Deploy preview to Netlify (non-master branches)` 
+   - Condition: `github.ref != 'refs/heads/master'`
+   - Uses `netlify:deploy:preview` script (no --prod flag for draft mode)
+   - Extracts draft deploy URL using `--json` flag and `jq`
+
+3. **PR comment automation added**
+   - New step: `Comment preview URL on PR`
+   - Condition: `github.event_name == 'pull_request'`
+   - Posts draft preview URL as PR comment
+   - Safely skips plain branch pushes
+
+4. **New npm script in package.json**
+   - Added `netlify:deploy:preview` to `frontend-astro/package.json`
+   - Deployed as draft (no --prod, reuses same NETLIFY_AUTH_TOKEN and NETLIFY_SITE_ID)
+
+**Gate status:** Preview environment feature complete. Non-master branches now deploy as draft previews with PR comments. Prod deploy step unchanged.

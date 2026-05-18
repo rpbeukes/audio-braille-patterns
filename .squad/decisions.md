@@ -157,6 +157,29 @@ The Braille Patterns sidebar nav icon in the Astro app did not match the Angular
 
 ---
 
+---
+
+### 2026-05-18: Netlify Preview Deployments (Parker)
+
+**Status:** ✅ Executed
+
+**What:** Non-master branches deploy to Netlify as draft (no --prod flag). Master-only gets --prod. Same NETLIFY_AUTH_TOKEN and NETLIFY_SITE_ID secrets are reused — Netlify routes draft vs prod based on the --prod flag presence.
+
+**Why:** User request — enable preview environments for feature branches/PRs.
+
+**Implementation details:**
+- Workflow trigger broadened from `push: branches: [master]` to `push: branches: ['**']` so all feature branches run the pipeline.
+- New step `Deploy preview to Netlify (non-master branches)` runs when `github.ref != 'refs/heads/master'`. Uses `--json` flag + `jq` to extract the draft deploy URL.
+- New step `Comment preview URL on PR` posts the draft URL as a PR comment. Gated on `github.event_name == 'pull_request'` so it safely skips plain branch pushes.
+- New npm script `netlify:deploy:preview` added to `frontend-astro/package.json`.
+- Prod deploy step unchanged.
+
+**Affected files:**
+- `.github/workflows/CICD.yml` (workflow trigger + new steps)
+- `frontend-astro/package.json` (new netlify:deploy:preview script)
+
+---
+
 ## Governance
 
 - All meaningful changes require team consensus

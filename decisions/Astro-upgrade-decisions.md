@@ -64,9 +64,9 @@
 
 ### Open Questions (Decisions Needed from Ruan)
 
-| # | Question | Impact |
-|---|---|---|
-| Q1 | Does the Netlify site serve from the domain root (`abp.beukesbunch.com/`) or a subdirectory? | If subdirectory, Astro `base` config must be set and all asset/route paths updated |
-| Q2 | Should pattern names link to their `blogContentUrl` (pathstoliteracy.org) in the new table? | Minor UX enhancement — the data has this field but Angular UI doesn't use it |
-| Q3 | Should a search/filter input be added to the Braille Patterns page? (`applyFilter` was dead code in Angular) | Scope change — if yes, this becomes a React island |
-| Q4 | After successful Astro deployment, should `frontend/` be deleted from the repo? | Recommend yes, to avoid confusion. Confirm before Parker removes it from CICD. |
+| # | Question | Impact | Response
+|---|---|---|---|
+| Q1 | Does the Netlify site serve from the domain root (`abp.beukesbunch.com/`) or a subdirectory? | If subdirectory, Astro `base` config must be set and all asset/route paths updated | I'm not sure, the files are deployed to `audio-braille-pattern`, but when the site is hit, it goes to `abp.beukesbunch.com` and then the app route `abp.beukesbunch.com/braille-patterns` automatically. ![Netlify UI screenshot](\netlify-deployment-file-structure.png)
+| Q2 | Should pattern names link to their `blogContentUrl` (pathstoliteracy.org) in the new table? | Minor UX enhancement — the data has this field but Angular UI doesn't use it | No
+| Q3 | Should a search/filter input be added to the Braille Patterns page? (`applyFilter` was dead code in Angular) | Scope change — if yes, this becomes a React island | I want this app to be static generated, so  if the filter is not need, we can add it later.
+| Q4 | After successful Astro deployment, should `frontend/` be deleted from the repo? | Recommend yes, to avoid confusion. Confirm before Parker removes it from CICD. | Let's wait with this one until I'm happy with the result.

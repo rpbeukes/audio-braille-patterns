@@ -30,7 +30,25 @@ Ripley is the Lead for the Audio Braille Patterns migration project.
 
 <!-- Append new learnings below. Each entry is something lasting about the project. -->
 
-### 2026-05-18 — Netlify Deployment Setup Confirmed
+### 2026-05-18 — Bookworm-Light-Astro Template Evaluated (Not Adopted)
+
+**What we evaluated:**
+
+- Requested evaluation of `themefisher/bookworm-light-astro` as alternative to Flowbite template
+- Template is a full-featured blog with Astro 6.1.9, React 19.2.5, Tailwind CSS 4.2.4, TypeScript 6.0.3, MDX, Fuse.js, search, tags, categories, multi-author support
+- React is **present and mandatory** (unlike Flowbite, which was rejected for this reason) — passes hard requirement immediately
+- **Verdict:** ⚠️ Partial fit — NOT adopted
+
+**Why rejected:**
+
+- Template is 70-80% blog infrastructure (post management, multi-author system, tags, categories, search, contact forms, auth pages, dashboard)
+- ABP only needs: YouTube link listing, 2 static pages, 1 data table, sidebar nav, dark mode
+- Stripping would reduce template to ~20-30% of original size — inefficient vs. Flowbite or minimal Astro starter
+- Astro + React + TypeScript stack is ideal, but blog bloat outweighs benefits
+
+**Outcome:** Flowbite template (vanilla JS) confirmed as primary direction. Bookworm evaluation archived in decisions.md for future reference only. No implementation from Bookworm template.
+
+### 2026-05-18 — Flowbite Template Evaluated and Adopted
 
 **What we learned about the deployment:**
 

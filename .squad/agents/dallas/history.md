@@ -98,3 +98,27 @@ Completed Phase 0 — minimal Astro + React scaffold at `frontend-astro/`.
 - TypeScript: no errors reported
 
 **Next action after gate approval:** Phase 1 — Migrate data to `src/data/braille-patterns.ts`
+
+### 2026-05-18 — Phase 1 Complete: Data & Assets Migration
+
+✅ **COMPLETE**
+
+**What was done:**
+
+1. **Data file created:** `frontend-astro/src/data/braille-patterns.ts`
+   - Interface renamed `BraillePatternLine` → `BraillePattern` (cleaner, context-appropriate)
+   - Array renamed `BraillePatternLines` → `braillePatterns` (camelCase, no "Lines" suffix)
+   - All 5 entries preserved: Tow truck, Valentine's heart, Santa Claus, Hello Kitty with Santa hat, Flower in pot
+   - Image paths updated from `assets/pattern-images/…` → `/pattern-images/…` (public/ root-relative)
+   - Both interface and array exported; clean TypeScript, no `any`
+
+2. **Assets verified:** All 5 PNGs already present in `frontend-astro/public/pattern-images/` from Phase 0. No copy needed.
+
+3. **Fonts copied:** `frontend/src/assets/fonts/FontinSans/` (5 `.otf` files) → `frontend-astro/public/fonts/FontinSans/`
+   - Fontin_Sans_B.otf, Fontin_Sans_BI.otf, Fontin_Sans_I.otf, Fontin_Sans_R.otf, Fontin_Sans_SC.otf
+
+4. **Build:** `npm run build` — ✅ 1 page built, 0 TypeScript errors, 0 warnings
+
+**Deviations from plan:** None. Phase 1 spec followed exactly.
+
+**Next action:** Phase 2 — Build components (Layout.astro, PatternsTable.astro, AboutPage.astro, SidebarToggle.tsx, Navigation.astro)

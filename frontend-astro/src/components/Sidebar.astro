@@ -1,0 +1,67 @@
+---
+export interface Props { currentPath: string; }
+const { currentPath } = Astro.props;
+---
+<nav id="sidebar" aria-label="Main navigation">
+  <ul>
+    <li>
+      <a
+        href="/braille-patterns"
+        class:list={[{ active: currentPath.includes('braille-patterns') }]}
+        aria-current={currentPath.includes('braille-patterns') ? 'page' : undefined}
+      >
+        <span class="material-icons" aria-hidden="true">brightness_auto</span> Braille Patterns
+      </a>
+    </li>
+    <li>
+      <a
+        href="/about"
+        class:list={[{ active: currentPath === '/about' }]}
+        aria-current={currentPath === '/about' ? 'page' : undefined}
+      >
+        <span class="material-icons" aria-hidden="true">brightness_auto</span> About
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<style>
+  #sidebar {
+    position: fixed;
+    top: 64px;
+    left: -250px;
+    width: 250px;
+    height: calc(100vh - 64px);
+    background: #fff;
+    border-right: 1px solid #e0e0e0;
+    transition: left 0.25s ease;
+    z-index: 90;
+    overflow-y: auto;
+  }
+  #sidebar.open {
+    left: 0;
+  }
+  @media (min-width: 992px) {
+    #sidebar {
+      left: 0;
+    }
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 1rem 0;
+  }
+  a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    color: #333;
+    text-decoration: none;
+  }
+  a:hover,
+  a.active {
+    background: #e8eaf6;
+    color: #3f51b5;
+  }
+</style>

@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { braillePatterns } from '../data/braille-patterns';
+---
+<Layout title="Braille Patterns — Audio Braille Patterns">
+  <table class="patterns-table">
+    <thead>
+      <tr>
+        <th scope="col">No.</th>
+        <th scope="col">Name</th>
+        <th scope="col">Pattern</th>
+        <th scope="col">Audio</th>
+      </tr>
+    </thead>
+    <tbody>
+      {braillePatterns.map(pattern => (
+        <tr>
+          <td>{pattern.position}</td>
+          <td>
+            {pattern.blogContentUrl
+              ? <a href={pattern.blogContentUrl} target="_blank" rel="noopener">{pattern.name}</a>
+              : pattern.name}
+          </td>
+          <td class="pattern-cell">
+            {pattern.pictureUrl
+              ? <img src={pattern.pictureUrl} alt={`Braille pattern for ${pattern.name}`} width="64" />
+              : <span>Not Available</span>}
+          </td>
+          <td>
+            <a
+              href={pattern.audioUrl}
+              target="_blank"
+              rel="noopener"
+              aria-label={`Open audio instructions for ${pattern.name}`}
+            >
+              <span class="material-icons" aria-hidden="true">volume_up</span>
+            </a>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</Layout>
+
+<style>
+  .patterns-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .patterns-table th,
+  .patterns-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .patterns-table th {
+    background: #3f51b5;
+    color: #fff;
+    font-weight: 600;
+  }
+  .patterns-table tbody tr:hover {
+    background: #f5f5f5;
+  }
+  .pattern-cell img {
+    display: block;
+    max-width: 64px;
+    height: auto;
+  }
+  a {
+    color: #3f51b5;
+  }
+</style>

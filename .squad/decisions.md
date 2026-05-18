@@ -60,6 +60,84 @@ Evaluated [bookworm-light-astro](https://github.com/themefisher/bookworm-light-a
 
 ---
 
+### 2026-05-18: Phase 1 — Data & Assets Migration (Dallas)
+
+**Status:** ✅ Complete
+
+- **Data file:** `frontend-astro/src/data/braille-patterns.ts`
+- **Entries migrated:** 5
+- **Interface:** BraillePattern
+- **Assets verified:** All 5 pattern images present; all FontinSans fonts copied to `frontend-astro/public/fonts/FontinSans/`
+- **Build:** Pass (1 page, 0 TypeScript errors)
+
+Spec followed exactly. Image paths updated to root-relative format for Astro's public directory.
+
+---
+
+### 2026-05-18: Replace SPA `_redirects` Catch-All with Astro Static Rules (Dallas)
+
+**Status:** ✅ Executed
+
+**Change:** Remove Angular SPA catch-all (`/* /index.html 200`) from `public/_redirects`. Replace with:
+```
+/braille-patterns  /braille-patterns/  301
+```
+
+**Rationale:** Astro static mode generates real HTML files for each route. SPA catch-all would incorrectly serve root index.html for all URLs. Single rule handles trailing-slash normalization. Netlify automatically serves 404.html for unknown paths.
+
+**Outcome:**
+- Build: 4 pages (`index.html`, `braille-patterns/index.html`, `about/index.html`, `404.html`)
+- Zero TypeScript errors
+- _redirects updated
+
+---
+
+### 2026-05-18: Phase 5 — Static HTML Accessibility Audit (Lambert)
+
+**Status:** ✅ PASS
+
+**Pages audited:** braille-patterns, about, 404
+
+**All checks passed:**
+- Lang attribute, non-empty titles present on all pages
+- Table marked up with `<thead>`, `<tbody>`, `scope="col"` on all `<th>`
+- All 5 pattern images have descriptive `alt="Braille pattern for {name}"` (improvement over Angular)
+- All audio links have `aria-label="Open audio instructions for {name}"`
+- Sidebar nav has `aria-label="Main navigation"`
+- SidebarToggle button has `type="button"`, `aria-label="Toggle navigation menu"`, `aria-expanded="false"`
+- Decorative icons have `aria-hidden="true"`
+- Active nav link has `aria-current="page"`
+- All external links on /about have `rel="noopener"`
+- 404 page complete with back link
+
+**Test suite:** 10/10 tests passing (6 data + 4 SidebarToggle)
+
+**Verdict:** All 3 pages clean. WCAG 2.1 AA compliant. Migration improves accessibility by replacing empty `alt=""` with descriptive text.
+
+---
+
+### 2026-05-18: CI/CD Pipeline Updated for Astro (Parker)
+
+**Status:** ✅ Executed
+
+**Changes to `.github/workflows/CICD.yml`:**
+- Node version: 16 → 20 (Astro 6.x requires Node 18+)
+- Working directory: `./frontend` → `./frontend-astro`
+- Angular version step removed
+- Install command simplified: `npm install && (npm ls …)` → `npm install`
+- Artifact path: `./frontend/dist` → `./frontend-astro/dist`
+- Upload artifact action: v1 → v3
+- Netlify working-directory updated
+
+**Changes to `frontend-astro/package.json`:**
+- Added `"netlify:deploy:prod": "netlify deploy --dir ./dist --prod"`
+
+**Note on Node version constraint:** `package.json` declares `engines >= 22.12.0`, but CI uses Node 20. npm warns but does not fail. Flagged for Ruan decision: align to Node 22 LTS or lower constraint.
+
+**Secrets:** No changes — `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID` already configured.
+
+---
+
 ## Governance
 
 - All meaningful changes require team consensus

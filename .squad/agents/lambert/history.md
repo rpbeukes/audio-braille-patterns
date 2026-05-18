@@ -61,3 +61,27 @@ Ripley completed the initial architecture and planning phase. Key info for Lambe
 - Q4: Delete old `frontend/` after migration? (no test impact)
 
 **Full migration plan:** See Ripley's learnings or `prompts/UpgradeToAstro/migration-plan.md`
+
+### 2026-05-18 — Phase 5 Complete: Accessibility Audit PASS
+
+**Lambert completed the final phase of the ABP migration.** Static HTML audit of all 3 pages (braille-patterns, about, 404) passed WCAG 2.1 AA with zero issues.
+
+**Key wins:**
+- All lang attributes, titles, semantic HTML in place
+- Table correctly marked with `<thead>`, `<tbody>`, `scope="col"` on headers
+- All 5 pattern images have descriptive `alt="Braille pattern for {name}"` (beats Angular's empty `alt=""`)
+- All 5 audio links have `aria-label="Open audio instructions for {name}"`
+- Sidebar nav (`aria-label="Main navigation"`)
+- SidebarToggle button properly labeled and expanded state tracked (`aria-expanded="false"` in static HTML)
+- All external links carry `rel="noopener"` (404 back link included)
+- 10/10 tests passing (6 data + 4 SidebarToggle)
+
+**Verdict:** Migration improves accessibility. All pages clean for screen reader users and keyboard navigation. **READY FOR PRODUCTION.**
+
+All 6 phases now complete:
+- Phase 0 (Dallas): Astro scaffold ✅
+- Phase 1 (Dallas): Data & assets ✅
+- Phase 2 (Ripley): Page structure ✅
+- Phase 3 (Ripley): React island ✅
+- Phase 4 (Parker): CI/CD ✅
+- Phase 5 (Lambert): a11y audit ✅

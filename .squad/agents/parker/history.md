@@ -188,3 +188,26 @@ Ripley completed the initial architecture and planning phase. Key info for Parke
    - Reads `${{ steps.netlify_preview.outputs.deploy_url }}` already set by the deploy step
 
 **Impact:** Preview URLs are now visible directly in the GitHub Actions "Summary" tab for both PR runs and manual `workflow_dispatch` triggers. Ruan no longer needs to log into Netlify to find a preview link.
+
+### 2026-05-18 — Angular Frontend Removal
+
+✅ **COMPLETE**
+
+**What was removed:**
+
+- `frontend/` directory deleted in its entirety (~75 files): Angular 8 app, all components, services, assets (fonts, pattern images), e2e tests, and Angular config files.
+
+**References scanned and findings:**
+
+| Location | Finding | Action |
+|---|---|---|
+| `.github/workflows/CICD.yml` | Already points to `./frontend-astro` only — no `./frontend` references | None needed |
+| `.github/workflows/squad-triage.yml` | Contains `"frontend/UI work"` as natural language string only — not a directory path | None needed |
+| `README.md` | No references to `frontend/` | None needed |
+| Root config files (`package.json`, `netlify.toml`, etc.) | None exist at repo root | None needed |
+| `decisions/` and `prompts/` docs | Historical migration notes reference old `frontend/` path — intentional historical record | Left as-is |
+
+**Conclusion:** No active CI/CD, config, or README references required cleanup. The previous Phase 4 work (Parker, 2026-05-18) had already fully migrated all pipeline references to `frontend-astro`. Removal was clean.
+
+**Commit branch:** `chore/remove-angular-frontend`
+**PR:** `chore: remove old Angular frontend`

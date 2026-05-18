@@ -122,3 +122,52 @@ Ripley completed the initial architecture and planning phase. Key info for Parke
    - Deployed as draft (no --prod, reuses same NETLIFY_AUTH_TOKEN and NETLIFY_SITE_ID)
 
 **Gate status:** Preview environment feature complete. Non-master branches now deploy as draft previews with PR comments. Prod deploy step unchanged.
+
+### 2026-05-18 — GitHub Actions Artifact Deprecation Fix
+
+✅ **COMPLETE**
+
+**What was done:**
+
+1. **Deprecated action identified and upgraded**
+   - `actions/upload-artifact@v3` is deprecated and now fails in GitHub Actions
+   - Upgraded to `actions/upload-artifact@v4` in `.github/workflows/CICD.yml` (line 33)
+
+2. **Verification**
+   - Scanned entire `.github/workflows/` directory for any `actions/download-artifact@v3` — none found
+   - No other deprecated artifact actions detected
+
+3. **Commit**
+   - Commit SHA: 92c4935
+   - Message: "fix: upgrade actions/upload-artifact v3 → v4"
+   - CI/CD workflow now uses latest stable action, resolving deprecation warnings and failures
+
+**Impact:** GitHub Actions builds will no longer fail due to deprecated upload-artifact action. Pipeline stability improved.
+
+### 2026-05-18 — GitHub Actions Node.js 20 Deprecation Upgrade
+
+✅ **COMPLETE**
+
+**What was done:**
+
+1. **Deprecated actions identified**
+   - `actions/checkout@v3` runs on Node.js 20 (deprecated in GitHub Actions)
+   - `actions/setup-node@v3` runs on Node.js 20 (deprecated in GitHub Actions)
+
+2. **Actions upgraded**
+   - Upgraded `actions/checkout@v3` → `actions/checkout@v4` (line 18)
+   - Upgraded `actions/setup-node@v3` → `actions/setup-node@v4` (line 20)
+   - v4 versions run on Node.js 24 (current LTS)
+
+3. **Verification**
+   - Scanned workflow for all `@v3` action references
+   - `actions/upload-artifact@v4` and `actions/github-script@v7` already at current versions
+   - No other deprecated action versions remain
+
+4. **Commit**
+   - Commit SHA: 0dae6f0
+   - Message: "fix: upgrade actions/checkout and setup-node v3 → v4"
+   - Node.js 20 actions deprecated; upgrading to v4 which runs on Node.js 24
+   - Fixes GitHub Actions deprecation warnings
+
+**Impact:** GitHub Actions workflow now runs on current Node.js version. Deprecation warnings resolved, improved CI/CD stability and security.

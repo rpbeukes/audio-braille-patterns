@@ -180,6 +180,36 @@ The Braille Patterns sidebar nav icon in the Astro app did not match the Angular
 
 ---
 
+### 2026-05-18: Node.js v24 LTS Upgrade (Parker)
+
+**Status:** ✅ Applied
+
+**Changes:**
+- `frontend-astro/package.json` → `engines.node`: `>=22.12.0` → `>=24.0.0`
+- `.github/workflows/CICD.yml` → `node-version`: `22` → `24`
+
+**Rationale:** Node 24 reached LTS in October 2025. Node 22 is in maintenance mode. All dependencies (Astro 6, React 19, Vitest 4) are fully compatible. No blockers.
+
+**Risk:** Low — no native addons, modern LTS-compatible stack, GitHub Actions v4 supports Node 24.
+
+**Commit:** `3f16089`
+
+---
+
+### 2026-05-18: GitHub Actions Deprecation Upgrades (Parker)
+
+**Status:** ✅ Applied
+
+**Changes:**
+- `.github/workflows/CICD.yml` → `actions/checkout`: `v3` → `v4`
+- `.github/workflows/CICD.yml` → `actions/setup-node`: `v3` → `v4`
+
+**Rationale:** GitHub Actions v3 runs on Node.js 20 (deprecated). v4 runs on Node.js 24 (current LTS). Fixes deprecation warnings, maintains pipeline stability.
+
+**Impact:** No functional changes to workflow or build output.
+
+---
+
 ## Governance
 
 - All meaningful changes require team consensus

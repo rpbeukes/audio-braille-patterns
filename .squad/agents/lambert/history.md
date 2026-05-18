@@ -24,7 +24,15 @@ Lambert is the Tester for the Audio Braille Patterns migration project.
 
 <!-- Append new learnings below. Each entry is something lasting about the project. -->
 
-### 2026-05-18 — Migration Plan & Architecture Decisions from Ripley
+### 2026-05-18 — Icon Sourcing Standard: Iconify API as Source of Truth
+
+Dallas fixed the braille icon in Sidebar.astro. The previously inlined SVG was incorrect — not actually `mdi:braille` from MDI / Iconify. The correct icon depicts a hand reading braille, not just a dot grid.
+
+**Team decision:** When inlining MDI icons, fetch SVG paths from the Iconify API directly (`https://api.iconify.design/{icon-set}:{icon-name}.svg`) rather than transcribing from memory or secondary sources.
+
+**Accessibility implications:** Icons sourced from Iconify API maintain consistent visual representation across the app. When icons are used in UI with labels, ensure the icon itself has either `aria-hidden="true"` (if text label present) or an appropriate `aria-label` (if icon-only).
+
+
 
 Ripley completed the initial architecture and planning phase. Key info for Lambert:
 

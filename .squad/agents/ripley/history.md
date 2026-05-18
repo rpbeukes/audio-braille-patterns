@@ -111,7 +111,17 @@ Ripley is the Lead for the Audio Braille Patterns migration project.
 
 Detailed analysis for Q1 filed in main decisions log: `decisions\Astro-upgrade-decisions.md` (Section: "2026-05-18 — Inbox Entry: Q1 — Base URL / Netlify Deployment").
 
-### 2026-05-18 — Phase 0 Complete: Astro Scaffold (Dallas Delivered)
+### 2026-05-18 — mdi:braille Icon Source of Truth Established (Team Decision)
+
+**Status:** ✅ Implemented & Documented
+
+Dallas fixed the sidebar braille icon in Sidebar.astro. The icon was not `mdi:braille` but appeared to be a different dot-grid icon. The correct `mdi:braille` from Iconify depicts a hand reading braille — visually very different.
+
+**Team Decision:** When inlining MDI icons, **fetch SVG paths directly from `https://api.iconify.design/{icon-set}:{icon-name}.svg`** (do not manually transcribe or guess).
+
+**Impact for Ripley's work:** Icon sourcing is now a team standard. All future icon implementations should follow this pattern. Build verified and committed.
+
+
 
 ✅ **READY FOR PHASE 0 REVIEW GATE**
 

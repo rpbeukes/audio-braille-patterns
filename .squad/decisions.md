@@ -138,6 +138,25 @@ Spec followed exactly. Image paths updated to root-relative format for Astro's p
 
 ---
 
+### 2026-05-18: mdi:braille Icon Source of Truth (Dallas)
+
+**Status:** ✅ Resolved & Implemented
+
+The Braille Patterns sidebar nav icon in the Astro app did not match the Angular app. The Angular app uses `mdi:braille` via Iconify 1.0.6.
+
+**Finding:** The inline SVG previously used in `Sidebar.astro` was **not** `mdi:braille`. It appeared to be a different braille-dot-grid icon. The actual `mdi:braille` icon (from MDI / Iconify) depicts a hand/arm reading braille with dots alongside — a completely different visual.
+
+**Decision:** **Source of truth for icons:** Fetch SVG path data directly from `https://api.iconify.design/{icon-set}:{icon-name}.svg` when inlining MDI icons. Do not manually transcribe or guess path data.
+
+**Implementation:**
+- Replaced wrong path in `frontend-astro/src/components/Sidebar.astro`
+- Correct `mdi:braille` path sourced from `https://api.iconify.design/mdi:braille.svg`
+- SVG wrapper unchanged: `width="24" height="24" viewBox="0 0 24 24" fill="currentColor"`
+
+**Impact:** All team members inlining MDI icons should verify against the Iconify API rather than using paths from memory or secondary sources.
+
+---
+
 ## Governance
 
 - All meaningful changes require team consensus

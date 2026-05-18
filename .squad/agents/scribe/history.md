@@ -12,6 +12,10 @@
 
 Scribe maintains team memory, session logs, and the decisions ledger for the Audio Braille Patterns migration project. Silent — never addresses the user.
 
+## Cross-Agent Updates
+
+**2026-05-18:** Parker upgraded `actions/upload-artifact@v3` → `@v4` (commit `92c4935`). Decision merged to canonical log. No breaking changes — v4 is backward-compatible for this project's workflow logic.
+
 ## Learnings
 
 <!-- Append new learnings below. Each entry is something lasting about the project. -->

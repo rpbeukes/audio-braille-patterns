@@ -62,3 +62,39 @@ Ripley completed the initial architecture and planning phase. Key info for Dalla
 - Q4: Delete old `frontend/` after migration? (cleanup decision)
 
 **Full migration plan:** See Ripley's learnings in this file or `prompts/UpgradeToAstro/migration-plan.md`
+
+### 2026-05-18 — Phase 0 Complete: Astro Scaffold
+
+✅ **COMPLETE & GATED** — Ready for Ripley Phase 0 review
+
+Completed Phase 0 — minimal Astro + React scaffold at `frontend-astro/`.
+
+**Versions installed:**
+- `astro`: ^6.3.3 (create-astro 5.0.6)
+- `react`: ^19.2.6
+- `react-dom`: ^19.2.6
+- `@astrojs/react`: ^5.0.5
+- `@types/react`: ^19.2.14
+- `@types/react-dom`: ^19.2.3
+
+**What was done:**
+1. `npm create astro@latest frontend-astro -- --template minimal --typescript strict --no-git --no-install` — scaffold created, deps installed separately
+2. `npx astro add react --yes` — React integration added, `tsconfig.json` auto-updated
+3. `astro.config.mjs` — added `output: 'static'` (not added by astro add react)
+4. Directories created: `src/data/`, `src/components/`, `src/layouts/`
+5. Assets copied to `public/`: `pattern-images/` (5 images), `favicon.ico`, `_redirects`, `_headers`
+   - `_redirects` and `_headers` were in `frontend/src/` (not `frontend/public/`)
+6. `npm run build` — ✅ 1 page built, no TypeScript errors
+
+**Deviations from plan:**
+- `decisions.md` mentioned Flowbite template adoption, but Ruan confirmed minimal scaffold only — no external template used.
+- `--no-install` flag IS supported by create-astro 5.0.6; used successfully.
+- `astro add react` auto-updated `tsconfig.json` with jsx/jsxImportSource — no manual edit needed.
+
+**Gate status:** Awaiting Ripley Phase 0 Review Gate. Ripley will verify:
+- Dev server: `npm run dev` in `frontend-astro/` starts without errors
+- HMR: Code changes reflect in browser
+- Sidebar dark mode: verify both work
+- TypeScript: no errors reported
+
+**Next action after gate approval:** Phase 1 — Migrate data to `src/data/braille-patterns.ts`

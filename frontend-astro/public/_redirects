@@ -1,0 +1,2 @@
+# Netlify Redirects - what the browser requests to what Netlify serves.
+/*    /index.html    200

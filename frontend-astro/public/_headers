@@ -1,0 +1,8 @@
+# Netlify Security Headers
+# use https://securityheaders.com/ to get a rating and improve the security of the site
+/*
+	
+	X-Xss-Protection: 1; mode=block
+	X-Frame-Options: SAMEORIGIN
+	X-Content-Type-Options: nosniff 
+	Referrer-Policy: no-referrer-when-downgrade

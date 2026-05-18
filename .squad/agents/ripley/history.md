@@ -111,16 +111,28 @@ Ripley is the Lead for the Audio Braille Patterns migration project.
 
 Detailed analysis for Q1 filed in main decisions log: `decisions\Astro-upgrade-decisions.md` (Section: "2026-05-18 — Inbox Entry: Q1 — Base URL / Netlify Deployment").
 
-### 2026-05-18 — Flowbite Template Evaluated and Rejected
+### 2026-05-18 — Phase 0 Complete: Astro Scaffold (Dallas Delivered)
 
-**What happened:**
+✅ **READY FOR PHASE 0 REVIEW GATE**
 
-- Ruan requested evaluation of `themesberg/flowbite-astro-admin-dashboard` as a base template
-- Investigation confirmed: the template uses Astro + Tailwind CSS + Flowbite vanilla JS — **React is entirely absent**
-- Ruan immediately rejected the template because React is a hard requirement
-- All changes from that investigation were reverted
-- Decision filed in `decisions\Astro-upgrade-decisions.md`: Template rejected, original architecture (Astro + React islands) stands
-- Decision 1 remains unchanged: `SidebarToggle.tsx` React island (`client:load`) is the approach for mobile sidebar toggle
+Dallas has completed Phase 0. The minimal Astro + React scaffold is built at `frontend-astro/` with clean integration:
 
-**Outcome:** Flowbite template direction is permanently cancelled. `@astrojs/react` integration is required. Implementation can proceed with confidence on the original plan.
+**Deliverables:**
+- Directory: `frontend-astro/` with Astro 6.3.3, React 19.2.6, @astrojs/react 5.0.5
+- Configuration: `output: 'static'` in astro.config.mjs, strict TypeScript, React JSX configured
+- Build: `npm run build` passes — 1 page built, no TypeScript errors
+- Assets: `_redirects`, `_headers`, pattern images copied to `public/`
+
+**Key decision:** User directive confirmed **no external template** — minimal scaffold only. Earlier Flowbite adoption decision archived and superseded in decisions.md.
+
+**Ripley's Phase 0 Review Gate (next steps):**
+1. Run dev server: `npm run dev` in `frontend-astro/` — must start cleanly
+2. Verify HMR: Change a file and confirm browser hot-reloads
+3. Test sidebar + dark mode: Both interactive features work
+4. TypeScript reporting: No errors in the editor
+
+**After gate approval:**
+- Dallas proceeds to Phase 1 — migrate data to `src/data/braille-patterns.ts`
+- Parker updates CICD when gated (working-directory, Node 20+)
+- Lambert prepares accessibility tests (axe-core, Playwright)
 

@@ -171,3 +171,20 @@ Ripley completed the initial architecture and planning phase. Key info for Parke
    - Fixes GitHub Actions deprecation warnings
 
 **Impact:** GitHub Actions workflow now runs on current Node.js version. Deprecation warnings resolved, improved CI/CD stability and security.
+
+### 2026-05-18 — GitHub Actions Job Summary for Preview URL
+
+✅ **COMPLETE**
+
+**What was done:**
+
+1. **New workflow step added to `.github/workflows/CICD.yml`**
+   - Step name: `Write preview URL to job summary`
+   - Placed between the Netlify preview deploy step and the PR comment step
+   - Condition matches the deploy step: `(github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch') && github.ref != 'refs/heads/master'`
+   - Writes formatted markdown (branch, commit SHA, clickable preview link) to `$GITHUB_STEP_SUMMARY`
+
+2. **No new secrets or scripts needed**
+   - Reads `${{ steps.netlify_preview.outputs.deploy_url }}` already set by the deploy step
+
+**Impact:** Preview URLs are now visible directly in the GitHub Actions "Summary" tab for both PR runs and manual `workflow_dispatch` triggers. Ruan no longer needs to log into Netlify to find a preview link.

@@ -30,7 +30,7 @@ jobs:
         working-directory: ./frontend-astro
 
       - name: Create artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dist
           path: ./frontend-astro/dist

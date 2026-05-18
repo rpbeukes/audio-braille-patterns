@@ -1,6 +1,8 @@
 ---
+import SidebarToggle from './SidebarToggle.tsx';
 ---
 <header class="topnav fix-nav">
+  <SidebarToggle client:load />
   <div class="nav-brand">
     <span>Audio Braille Patterns Voice Recordings</span>
   </div>
@@ -28,12 +30,6 @@
     font-weight: 500;
   }
   :global(.sidebar-toggle-btn) {
-    background: none;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    padding: 0.25rem;
-    display: flex;
-    align-items: center;
+    display: none;
   }
 </style>

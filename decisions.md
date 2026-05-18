@@ -104,3 +104,43 @@ if: (github.event_name == 'pull_request' || github.event_name == 'workflow_dispa
 **Approved:** Executed immediately. Non-breaking workflow enhancement.
 
 ---
+
+# Decision: Add netlify-cli to devDependencies
+
+**Date:** 2026-05-18  
+**Author:** Parker (DevOps)  
+**Status:** ✅ Applied
+
+## Problem
+
+CI step "Deploy preview to Netlify (non-master branches)" failed with:
+
+```
+sh: 1: netlify: not found
+Error: Process completed with exit code 127.
+```
+
+The `netlify:deploy:prod` and `netlify:deploy:preview` npm scripts call the `netlify` binary directly, but `netlify-cli` was not listed in `devDependencies`. The CI's `npm install` step therefore never installed it, leaving the binary absent on the runner.
+
+## Decision
+
+Add `netlify-cli` to `devDependencies` in `frontend-astro/package.json` so the existing `npm install` step in CICD.yml installs it automatically. No separate install step is needed in the workflow.
+
+## Side Effect: Peer Dependency Conflict
+
+`netlify-cli@^26.0.2` requires `@opentelemetry/api@^1.8.0`, while `vitest@^4.1.6` has an optional peer requirement of `@opentelemetry/api@^1.9.0`. npm refuses to resolve this without a flag.
+
+**Fix:** Added `frontend-astro/.npmrc` with `legacy-peer-deps=true`. This is scoped to the `frontend-astro/` working directory and does not affect the rest of the repo. It is the standard npm mechanism for resolving transitive peer conflicts without forcing or overriding specific versions.
+
+## Affected Files
+
+- `frontend-astro/package.json` — `netlify-cli` added to `devDependencies`
+- `frontend-astro/package-lock.json` — updated
+- `frontend-astro/.npmrc` — new file, `legacy-peer-deps=true`
+
+## Commit
+
+`73bcbc1` — `fix: add netlify-cli to devDependencies so CI can deploy`
+
+---
+

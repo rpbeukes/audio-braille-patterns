@@ -4,4 +4,9 @@ import react from '@astrojs/react';
 export default defineConfig({
   integrations: [react()],
   output: 'static',
+  vite: {
+    optimizeDeps: {
+      exclude: ['@testing-library/react', '@testing-library/dom', '@testing-library/jest-dom'],
+    },
+  },
 });

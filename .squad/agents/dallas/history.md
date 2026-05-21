@@ -154,3 +154,21 @@ The `mdi:braille` inline SVG in `frontend-astro/src/components/Sidebar.astro` wa
 - Committed: `fix(icons): correct mdi:braille SVG path to match Angular app`
 
 **Root cause:** When the original inline SVG was added, the wrong icon was sourced (likely a different braille-related icon from MDI, not the canonical `mdi:braille`).
+
+### 2026-05-21 — Fix: Missing `@testing-library/dom` peer dep + Vite optimizer exclusion
+
+✅ **COMPLETE**
+
+**Problem:** `npm run dev` was failing with `Could not resolve "@testing-library/dom"`. Vite's dependency optimizer was attempting to pre-bundle `@testing-library/react` during dev server startup, which pulled in its peer dependency `@testing-library/dom` — but that package wasn't installed and wasn't listed in `package.json` devDependencies.
+
+**Fix 1 — Install missing peer dep:**
+- Ran `npm install --save-dev @testing-library/dom` from `frontend-astro/`
+- `@testing-library/dom` is a required peer of `@testing-library/react@^16.3.2` and must be explicitly installed
+
+**Fix 2 — Exclude test libs from Vite optimizer:**
+- Added `vite.optimizeDeps.exclude` in `astro.config.mjs` for: `@testing-library/react`, `@testing-library/dom`, `@testing-library/jest-dom`
+- **Why this matters:** Vite's pre-bundling (esbuild optimizer) runs at dev startup and tries to bundle all deps including test libraries. Test libs are never loaded in the browser — they're Vitest/jsdom-only. Excluding them prevents Vite from even attempting to resolve their transitive deps during dev, eliminating the error entirely and keeping dev startup lean.
+
+**Verified:**
+- `npm run dev` → starts cleanly at `http://localhost:4321/` in ~1.8s, no errors
+- `npm test` → 10/10 tests passing (6 data + 4 SidebarToggle)

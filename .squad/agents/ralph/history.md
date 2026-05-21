@@ -11,4 +11,10 @@ Ralph monitors the work queue for the Audio Braille Patterns migration project.
 
 ## Learnings
 
-<!-- Append new learnings below. -->
+### Test Library Rule (2026-05-21)
+
+When adding any new testing library to `frontend-astro/`, always:
+1. Add to `devDependencies` (npm does not auto-install peer deps in all environments)
+2. Add to `vite.optimizeDeps.exclude` in `astro.config.mjs`
+
+This prevents Vite from attempting to pre-bundle test-only utilities at dev startup.

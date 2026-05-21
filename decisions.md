@@ -172,3 +172,57 @@ Add a step to `.github/workflows/CICD.yml` that writes a formatted markdown bloc
 
 - `.github/workflows/CICD.yml` — new step inserted between deploy step and PR comment step
 
+---
+
+## Decision: Exclude Testing Libraries from Vite Optimizer
+
+**Date:** 2026-05-21  
+**Author:** Dallas  
+**Status:** ✅ Implemented
+
+## Context
+
+`npm run dev` in `frontend-astro/` was failing with:
+
+```
+✘ [ERROR] Could not resolve "@testing-library/dom"
+    node_modules/@testing-library/react/dist/@testing-library/react.esm.js:5:126
+```
+
+Vite's dependency pre-bundler (esbuild optimizer) runs at dev server startup and attempts to bundle all imported packages — including `@testing-library/react`. This package declares `@testing-library/dom` as a required peer dependency, and when Vite tried to resolve it, it was missing from `node_modules`.
+
+## Root Causes
+
+1. `@testing-library/dom` was not listed in `devDependencies` despite being a required peer of `@testing-library/react@^16.3.2`.
+2. Test libraries should never be pre-bundled by Vite — they are used exclusively by Vitest/jsdom and are never loaded in the browser.
+
+## Decision
+
+**Testing libraries (`@testing-library/*`) are explicitly excluded from Vite's `optimizeDeps` in `astro.config.mjs`.**
+
+```js
+vite: {
+  optimizeDeps: {
+    exclude: ['@testing-library/react', '@testing-library/dom', '@testing-library/jest-dom'],
+  },
+},
+```
+
+**Additionally, `@testing-library/dom` must be kept as an explicit `devDependency`** even though it's a peer dep — npm does not auto-install peer deps in all environments.
+
+## Why
+
+Vite's optimizer is designed for browser-loaded dependencies. Test libraries run in a Node/jsdom environment under Vitest and have no business being in the browser bundle. Excluding them:
+- Prevents Vite from resolving test-only transitive dependencies at dev startup
+- Keeps the dev server startup lean
+- Makes the intent explicit: test libs are test-only
+
+## Affected Files
+
+- `frontend-astro/package.json` — added `@testing-library/dom` to `devDependencies`
+- `frontend-astro/astro.config.mjs` — added `vite.optimizeDeps.exclude`
+
+## Rule Going Forward
+
+When adding any new testing library to this project, also add it to `vite.optimizeDeps.exclude` in `astro.config.mjs`.
+

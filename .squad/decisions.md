@@ -222,14 +222,14 @@ These headers protect against XSS, clickjacking, and unauthorized API access by 
 
 **CSP Directive:**
 ```
-default-src 'self'; 
-script-src 'self' https://www.googletagmanager.com 'unsafe-inline'; 
-style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; 
-font-src 'self' https://fonts.gstatic.com; 
-img-src 'self' data:; 
-connect-src 'self' https://www.google-analytics.com https://analytics.google.com; 
-frame-src 'none'; 
-object-src 'none';
+default-src 'self';                                                                    # Fallback: only load resources from this domain
+script-src 'self' https://www.googletagmanager.com 'unsafe-inline';                   # GA4 script from GTM; 'unsafe-inline' required for gtag() in Layout.astro
+style-src 'self' https://fonts.googleapis.com 'unsafe-inline';                        # Google Fonts CSS (Material Icons); 'unsafe-inline' for Astro component styles
+font-src 'self' https://fonts.gstatic.com;                                             # Google Fonts actual font files (gstatic CDN)
+img-src 'self' data:;                                                                  # Self-hosted pattern images; data: for inline SVGs/base64
+connect-src 'self' https://www.google-analytics.com https://analytics.google.com;     # GA4 data beacons
+frame-src 'none';                                                                      # No iframes — YouTube links are plain <a href>, not embeds
+object-src 'none';                                                                     # Disable Flash/plugins — not used
 ```
 
 **Permissions-Policy Header:**

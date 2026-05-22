@@ -222,19 +222,24 @@ These headers protect against XSS, clickjacking, and unauthorized API access by 
 
 **CSP Directive:**
 ```
-default-src 'self';                                                                    # Fallback: only load resources from this domain
-script-src 'self' https://www.googletagmanager.com 'unsafe-inline';                   # GA4 script from GTM; 'unsafe-inline' required for gtag() in Layout.astro
-style-src 'self' https://fonts.googleapis.com 'unsafe-inline';                        # Google Fonts CSS (Material Icons); 'unsafe-inline' for Astro component styles
-font-src 'self' https://fonts.gstatic.com;                                             # Google Fonts actual font files (gstatic CDN)
-img-src 'self' data:;                                                                  # Self-hosted pattern images; data: for inline SVGs/base64
-connect-src 'self' https://www.google-analytics.com https://analytics.google.com;     # GA4 data beacons
-frame-src 'none';                                                                      # No iframes — YouTube links are plain <a href>, not embeds
-object-src 'none';                                                                     # Disable Flash/plugins — not used
+default-src 'self';                                                                 # Fallback: only load resources from this domain
+script-src 'self' https://www.googletagmanager.com 'unsafe-inline';                 # GA4 script from Google Tag Manager(GTM); 'unsafe-inline' required for gtag() in Layout.astro
+style-src 'self' https://fonts.googleapis.com 'unsafe-inline';                      # Google Fonts CSS (Material Icons); 'unsafe-inline' for Astro component styles
+font-src 'self' https://fonts.gstatic.com;                                          # Google Fonts actual font files (gstatic CDN)
+img-src 'self' data:;                                                               # Self-hosted pattern images; data: for inline SVGs/base64
+connect-src 'self' https://www.google-analytics.com https://analytics.google.com;   # GA4 data beacons
+frame-src 'none';                                                                   # No iframes — YouTube links are plain <a href>, not embeds
+object-src 'none';                                                                  # Disable Flash/plugins — not used
 ```
 
 **Permissions-Policy Header:**
 ```
-Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+Permissions-Policy:
+  camera=(),        # site has no camera features — block access entirely
+  microphone=(),    # site has no audio input — block access entirely
+  geolocation=(),   # site has no location features — block access entirely
+  payment=(),       # site has no payment flows — block access entirely
+  usb=()            # site has no USB device access — block access entirely
 ```
 
 **Rationale for `'unsafe-inline'`:** GA4 analytics requires an inline script block in Layout.astro. Alternatives (nonce, external file) are incompatible with static Astro output. Mitigation: inline script is owned by the team (not user-generated), and Google Tag Manager script loads separately.

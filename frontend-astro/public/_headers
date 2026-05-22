@@ -6,3 +6,6 @@
 	X-Frame-Options: SAMEORIGIN
 	X-Content-Type-Options: nosniff 
 	Referrer-Policy: no-referrer-when-downgrade
+	# CSP allows Google Fonts, GA4 analytics, and self-hosted resources. 'unsafe-inline' is required for GA4's inline gtag() script in Layout.astro
+	Content-Security-Policy: default-src 'self'; script-src 'self' https://www.googletagmanager.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com; frame-src 'none'; object-src 'none';
+	Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()

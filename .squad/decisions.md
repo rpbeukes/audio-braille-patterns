@@ -210,6 +210,52 @@ The Braille Patterns sidebar nav icon in the Astro app did not match the Angular
 
 ---
 
+### 2026-05-22: Content-Security-Policy and Permissions-Policy Headers (Parker)
+
+**Status:** ✅ Implemented
+
+**Context:** The Astro static site deployed on Netlify (https://abp.beukesbunch.com/braille-patterns) was missing two critical security headers:
+- `Content-Security-Policy` (CSP)
+- `Permissions-Policy`
+
+These headers protect against XSS, clickjacking, and unauthorized API access by explicitly declaring which external resources are trusted and which browser capabilities are allowed.
+
+**CSP Directive:**
+```
+default-src 'self'; 
+script-src 'self' https://www.googletagmanager.com 'unsafe-inline'; 
+style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; 
+font-src 'self' https://fonts.gstatic.com; 
+img-src 'self' data:; 
+connect-src 'self' https://www.google-analytics.com https://analytics.google.com; 
+frame-src 'none'; 
+object-src 'none';
+```
+
+**Permissions-Policy Header:**
+```
+Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+```
+
+**Rationale for `'unsafe-inline'`:** GA4 analytics requires an inline script block in Layout.astro. Alternatives (nonce, external file) are incompatible with static Astro output. Mitigation: inline script is owned by the team (not user-generated), and Google Tag Manager script loads separately.
+
+**Whitelisted Domains:**
+- `https://www.googletagmanager.com` — GA4 analytics script
+- `https://www.google-analytics.com` — GA4 data beacons
+- `https://analytics.google.com` — GA4 data beacons fallback
+- `https://fonts.googleapis.com` — Material Icons CSS
+- `https://fonts.gstatic.com` — Google font files
+
+**Implementation:** Updated `frontend-astro/public/_headers`. Build verified (4 pages, 0 errors). Netlify serves headers for all routes (`/*`).
+
+**Future DevOps Notes:**
+- New external CDNs require `style-src` or `font-src` updates
+- Analytics service replacement requires `script-src` and `connect-src` updates
+- YouTube embeds (if added) require `frame-src https://www.youtube.com`
+- Never loosen CSP without security review
+
+---
+
 ## Governance
 
 - All meaningful changes require team consensus
